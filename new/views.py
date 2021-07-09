@@ -160,3 +160,6 @@ def validate(request):
             obj.save()
         
     return render(request, 'index.html')
+
+def error_404(request , exception):
+    return render(request , '404_page.html')

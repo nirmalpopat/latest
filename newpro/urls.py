@@ -29,3 +29,5 @@ urlpatterns = [
     path('update_pri/<int:id>/',views.update_pri, name = "updatepri"),
     path('deletepri/<int:id>/',views.delete_pri, name = "deletepri"),
 ]
+
+handler404 = 'new.views.error_404'
