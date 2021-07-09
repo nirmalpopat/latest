@@ -1,0 +1,55 @@
+
+<head>
+    
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <style>
+       .tab1 {
+            tab-size: 8;
+        }
+       </style>
+</head>
+{% if type %}
+
+<h1>Welcome {{type}}</h1>
+
+{% endif %}
+
+{% if type == 'admin' %}
+
+        
+        <form method="POST">
+            {% csrf_token %}
+            <label for="users"><h3> Select user for Assign Priviliges:</h3></label>
+            <select name="users" id="users" class="dropdown show btn btn-secondary dropdown-toggle">
+
+                {% if data %}
+                
+                    {% for i in data %}
+                        
+                            <option value="{{ i.user_name }}">{{ i.user_name }}</option>
+                    {% endfor %}
+                {% endif %}
+              
+            </select>
+            <br><br>
+            {% if pri %}
+            <div class="form-check form-check-inline">
+                    {% for i in pri %}
+                        
+                    <input class="form-check-input" type="checkbox" id="{{ i.privillages_name }}" name="d[]" value="{{ i.privillages_name }}">
+                    <label class="form-check-label" for="{{ i.privillages_name }}">{{ i.privillages_name }}&nbsp;&nbsp;</label><br>
+                   
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <input type="submit" class="btn btn-primary"value="Submit">
+          </form>
+          <a href="{% url 'addpri' %}" class="btn btn-primary">Add Privillages</a>
+{% endif %}
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
