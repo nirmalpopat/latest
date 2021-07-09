@@ -28,6 +28,9 @@ urlpatterns = [
     path('crudpri/',views.add_pri, name = "addpri"),
     path('update_pri/<int:id>/',views.update_pri, name = "updatepri"),
     path('deletepri/<int:id>/',views.delete_pri, name = "deletepri"),
+    path('check',views.check,name="check")
 ]
 
 handler404 = 'new.views.error_404'
+
+handler500 = 'new.views.error_500'
