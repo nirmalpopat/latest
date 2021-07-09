@@ -98,10 +98,18 @@ def validate(request):
     #request.session['user'] = m.id
     data = Usermodel.objects.all()#usernamepass
     pri = Privillages.objects.all()
+    pri_data = []
+    for i in pri:
+        pri_data.append(i.privillages_name)
+    
     result = []
     for i in data:
         result.append(str(i.user_name) + str(i.password))
     #print(result)
+    obj = Usermodel.objects.get(user_type='admin')
+    obj.pri = ''
+    obj.pri = pri_data
+    flag = True
     if request.method == 'POST':
         
         #print('user is ',request.POST['users'])
@@ -113,50 +121,22 @@ def validate(request):
                     type = i.user_type
                 print(type)
                 if type == 'admin':
-                    data = Usermodel.objects.all()
+                    data = Usermodel.objects.exclude(user_type=type)
                 else:
                     data = Usermodel.objects.filter(user_type=type)
                 return render(request, 'result.html',{'data':data,'type':type,'pri':pri})
             else:
                 return render(request, 'result.html',{'ans':'User Name or Passwor is Invailid'})
         except:
+            flag = False
             user_name = request.POST['users']
             pri_list = request.POST.getlist('d[]')
             #print(user_name)
             #print(pri_list)
-            pri_list = str(pri_list)[1:-1]
-            #print(pri_list,'   hj')
             obj = Usermodel.objects.get(user_name=user_name)
-            s1 = obj.pri
-            s = ''
-            if obj.pri and pri_list:
-                s += obj.pri
-                s += ','
-                s += pri_list
-                obj.pri = s
-                
-                #obj.save()
-            else:
-                #s += obj.pri
-                pass
-            print(s)
-                #obj.save()
-            #s2 = str(str(set(str(s1)) + str(pri_list)))
-            
-            '''print(pri_list,'    from check')
-            st = ''
-            for i in pri_list:
-                st += i
-                print(i)
-            fi = s1
-            if st:
-                fi += ','
-                fi += st
-            print(s1 + st, ' njekw')
-            print(st)
-            print(fi)'''
-            
-            #obj.pri = str(result)
+            obj.pri = ''
+            obj.pri = pri_list
             obj.save()
-        
-    return render(request, 'index.html')
+    #if flag: 
+    
+    return render(request, 'index.html')    
