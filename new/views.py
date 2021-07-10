@@ -118,7 +118,7 @@ def validate(request):
                     data = Usermodel.objects.filter(user_type=type)
                 return render(request, 'result.html',{'data':data,'type':type,'pri':pri})
             else:
-                return render(request, 'result.html',{'ans':'User Name or Passwor is Invailid'})
+                return render(request, '401.html')
         except:
             user_name = request.POST['users']
             pri_list = request.POST.getlist('d[]')
