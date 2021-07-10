@@ -52,7 +52,7 @@ def add_show(request):
 
         return render(request, 'addandshow.html',{'form' : fm,'stu' : stud})
     else:
-        return HttpResponse('<h1>You are not authenticate</h1>')
+        return HttpResponse('<h1>You are not authenticated here [403]</h1>')
 
 #delete pri
 def delete_pri(request,id):
